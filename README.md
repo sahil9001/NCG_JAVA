@@ -30,7 +30,7 @@ Lombok
 Download:
 https://repo1.maven.org/maven2/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar
 install:
-java -jar lombok.1.18.26.jar
+java -jar lombok.1.18.28.jar
 
 3) MySQL  
 
@@ -100,8 +100,8 @@ Compile time environment:
 ```
 Book.java 
 public class Book {
-    private String title;
-    private double price;
+    private String title; // instance variables
+    private double price; // instance variables
 
     public void setTitle(String t) {
         this.title = t;
@@ -153,6 +153,55 @@ d) Book.class ==> CLASSPATH ==> loadClass()
 e) defineClass() ==> bytecode to platform dependent code
 ```
 
+constructors()
+instance methods
+static methods
 
-===========
 
+Requirement: i need to track how many instances of book is created
+```
+public class Book {
+    private String title; // instance variables
+    private double price; // instance variables
+    private static int count; // class member
+
+    public Book() {
+        count++;
+    }
+
+    public Book(String title, double price) {
+        this.title = title;
+        this.price = price;
+        count++;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public void setTitle(String t) { 
+        this.title = t;
+    }
+
+public String getTitle() {
+        return this.title;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+}
+
+```
+
+Logical grouping of classes in enterprise applications:
+1) entity classes
+    ==> business domain / model classes
+    they represent business data; genrally mapped to persistent store like RDBMS / MonogDB Collection/ Redis data
+2) DAO classes ==> Data Access Object ==> they contain CRUD operations
+3) Service classes ==> they are a facade over DAO classes ==> giving more fine grained operations over coarse grained operations done by DAO; also exposing different interfaces based on ROLES
+4) Exception classes ==> they represent any abnormal condition in application
+5) Utility classes ==> any helper classes like ==> DATE format depending on Locale
+6) Controller classes / UI ==> endpoint for APIs
+
+packages in java ==> logical grouping of classes.
