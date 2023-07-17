@@ -260,27 +260,8 @@ Generalization and Specialization --> using Inheritance --> IS A
 Lombok ==> ByteCodeInstrumentation to modify compiled code
 
 
-public class Product {
-   public double getPrice() {
-    return 100;
-   }
-}
-
-public class Mobile extends Product {
-  public double getPrice() {
-    return 100;
-   }
-   public String getConnectivity() {
-    return "4G";
-   }
-}
 
 
-Product m = new Mobile();
-
-m.getPrice();
-
-m.getConnectivity();
 
 
 
