@@ -141,6 +141,7 @@ set classpath=.;c:\users\banu\codes;d:\project;
 Runtime environment in Target Platform:
 java Example
 
+```
 1) Classloader
 loads bytecode from secondary storage [ HDD or Network ] to primary storage [ RAM --> Java platform ]
 a) findLoadedClass()
@@ -150,3 +151,8 @@ b) loadClass() --> loads from current folder or checks the CLASSPATH
 c) loadSystemClass() --> provided by JDK ==> rt.jar ==> or base module
 d) Book.class ==> CLASSPATH ==> loadClass()
 e) defineClass() ==> bytecode to platform dependent code
+```
+
+
+===========
+
