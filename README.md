@@ -233,3 +233,61 @@ public class TimeExample {
 }
 
 ```
+Relationship between objects
+1) Generalization and Specialization --> IS A
+2) Realization
+3) Association --> HAS A
+4) Uses A
+
+Java Build tools:
+1) Maven / Gradle ==> Compile / Bundle ...
+2) JUNIT --> unit testing
+3) Mocikto ==> Mocking dependencies
+4) Sonar ==> Static code analysis
+5) Jenkins ==> CI / CD
+6) Git
+
+Static Code analysis
+1) Coding Conventions  ==> Naming Conventsions, Comments , space, tabs ...
+2) Coding Stds ==> Good programming practice 
+    2.1) no dead code
+    2.2) proper catch blocks in exception handling
+    2.3) proper conditional statements
+    2.4) Copy & Paste Code
+
+Generalization and Specialization --> using Inheritance --> IS A
+
+Lombok ==> ByteCodeInstrumentation to modify compiled code
+
+
+public class Product {
+   public double getPrice() {
+    return 100;
+   }
+}
+
+public class Mobile extends Product {
+  public double getPrice() {
+    return 100;
+   }
+   public String getConnectivity() {
+    return "4G";
+   }
+}
+
+
+Product m = new Mobile();
+
+m.getPrice();
+
+m.getConnectivity();
+
+
+
+
+
+
+
+
+
+
