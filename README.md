@@ -74,5 +74,79 @@ https://thorben-janssen.com/persist-localdate-localdatetime-jpa/
 6) Spring:
 https://spring.io/projects/spring-boot
 
+================
 
-==========
+OOP ==> Writing programs which resemble real world
+
+Object first approach:
+Object contains state and behaviour [action / message]
+What messages an object can take is exposed thro its interface
+
+Blue print: --> function, class , type
+
+SOLID Design Principle
+S ==> Single Responsibility 
+O ==> OCP ==> Closed for Change; open for extension
+L ==> Liskov Substitution Principle
+I ==> Interface segreggation
+D ==> Dependency Injection
+===========================
+
+What is Java?
+Java is a technology; Java enabled machines
+Java ==> platform for executing bytecode
+
+Compile time environment:
+```
+Book.java 
+public class Book {
+    private String title;
+    private double price;
+
+    public void setTitle(String t) {
+        this.title = t;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+}
+
+JDK ==> Java Development KIT
+javac Book.java ==> Book.class [bytecode]
+
+Example.java
+public class Example {
+    public static void main(String[] args) {
+        Book b1 = new Book();
+        b1.setTitle("Head First Java");
+
+        Book b2 = new Book();
+        b2.setTitle("Spring in Action");
+
+        System.out.println(b1.getTitle() + ", " + b1.getPrice());
+        System.out.println(b2.getTitle() + ", " + b2.getPrice());
+    }
+}
+
+javac Example.java ==> Example.class [ bytecode]
+```
+
+set classpath=.;c:\users\banu\codes;d:\project;
+
+Runtime environment in Target Platform:
+java Example
+
+1) Classloader
+loads bytecode from secondary storage [ HDD or Network ] to primary storage [ RAM --> Java platform ]
+a) findLoadedClass()
+b) loadClass() --> loads from current folder or checks the CLASSPATH
+  Example.class --> loaded into RAM
+  String.class -- not found in CLASSPATH
+c) loadSystemClass() --> provided by JDK ==> rt.jar ==> or base module
+d) Book.class ==> CLASSPATH ==> loadClass()
+e) defineClass() ==> bytecode to platform dependent code
