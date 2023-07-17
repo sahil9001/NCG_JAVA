@@ -62,3 +62,17 @@ bash terminal> mysql -u "root" -p
 
 mysql> exit
 ```
+
+Reference Books & Links:
+1) Head First Java, Kathy Sierra
+2) Effective Java
+3) Java: The Complete Reference, Herbert Schildt, 
+4) Servlet & JSP: https://www.redbooks.ibm.com/redbooks/pdfs/sg245755.pdf
+5) JPA: 
+https://thorben-janssen.com/ultimate-guide-association-mappings-jpa-hibernate/
+https://thorben-janssen.com/persist-localdate-localdatetime-jpa/
+6) Spring:
+https://spring.io/projects/spring-boot
+
+
+==========
