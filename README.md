@@ -205,3 +205,31 @@ Logical grouping of classes in enterprise applications:
 6) Controller classes / UI ==> endpoint for APIs
 
 packages in java ==> logical grouping of classes.
+
+
+Task 1:
+```
+package com.adobe.prj.entity
+public class Time {
+    ..
+} 
+
+package com.adobe.prj.ui;
+
+public class TimeExample {
+    public static void main(String[] args) {
+        Time t1 = new Time(3, 45);
+        Time t2 = new time(2, 20);
+        Time t3 = Time.add(t1, t2); 
+
+        s.o.p(t3.getHours() + " : " + t3.getMin()) ; // 6 : 15
+
+        Time t4 = t1.addTime(t2); 
+        s.o.p(t4.getHours() + " : " + t4.getMin()) ; // 6 : 15
+
+        s.o.p(t1.getHours() + " : " + t2.getMin()) ; // 3 : 45
+        s.o.p(t2.getHours() + " : " + t2.getMin()) ; //2 : 30
+    }
+}
+
+```
