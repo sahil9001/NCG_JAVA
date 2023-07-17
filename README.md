@@ -259,7 +259,47 @@ Generalization and Specialization --> using Inheritance --> IS A
 
 Lombok ==> ByteCodeInstrumentation to modify compiled code
 
+==
 
+Generic classes for which object doesn't exist in real world: Account, Product ==> abstract
+
+method where we can't provide behaviour ==> abstract; this enforces all inherited classes to compulsorily override the method
+
+===
+
+Rules of inheritance:
+1) class can extends only from one class; multiple inheritance is not supported
+2) keyword "extends" is used for Specialization
+3) java.lang.Object is the root class for all objects
+4) important methods from Object class:
+hashCode(), toString(), equals(), getClass()
+For concurrency ==> wait(), notifyAll() and notify()
+
+toString() ==> whenever an object is passed as argument to System.to.println(obj); on that object toString()
+
+
+====
+
+Object equality == vs equals()
+
+Rectangle r1 = new Rectangle(4,5);
+Rectangle r2 = new Rectangle(4,5 );
+
+r1 = null;
+
+=====
+
+Garbage Collection ==> GC
+"new" keyword allocates objects on heap area
+Garbage collector is going to release un-used [ not referenced ] heap area
+
+Garbage Collector is low priority thread ==> System thread in JRE
+
+MarkSweepCompact GC
+G1GC
+EpsilonGC
+
+========
 
 
 

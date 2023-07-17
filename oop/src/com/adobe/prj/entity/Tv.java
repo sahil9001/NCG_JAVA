@@ -12,5 +12,11 @@ public class Tv extends Product {
 		super(id, name, price);
 		this.screenType = type;
 	}
-	// not overriding isExpensive(); it's inherited
+
+	@Override
+	public boolean isExpensive() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }

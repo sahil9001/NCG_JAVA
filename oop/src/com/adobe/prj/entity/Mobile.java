@@ -1,10 +1,14 @@
 package com.adobe.prj.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
-@Data
+//@Data
+@Getter
+@Setter
 public class Mobile extends Product {
 	private String connectivity;
 	
@@ -22,4 +26,12 @@ public class Mobile extends Product {
 		}
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return "Mobile [connectivity=" + connectivity + ", ID =" + getId() + ", NAME=" + getName()
+				+ ", Price =" + getPrice() + "]";
+	}
+	
+	
 }
