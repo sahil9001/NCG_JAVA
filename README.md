@@ -607,3 +607,29 @@ interfaces:
 * for realization
 * class can implement multiple interfaces
 
+===
+
+Java Collection Framework
+
+Comparable and Comparator interfaces are used to compare for operations like sort(), max, min(), ...
+
+```
+Logic for comparision is part of Object which is getting comparated:
+for example to compare String logic is in String class
+to compare Product logic will be in Product class
+
+Most of the cases we use this to compare based on PRIMARY key of field [ like id of product, id of employee, Lexiacal ordering for String]
+public interface Comparable<T> {
+      int compareTo(T o);
+}
+
+In case of Comparator, logic will be in client code and not in Object which is getting compared
+public interface Comparator<T> {
+     int compare(T o1, T o2);
+}
+```
+
+Arrays class contains algorithms like sort(), max(), min(), binarySearch() .. to be used on array type data container
+It uses Comparable or Compartor for comparision
+
+
