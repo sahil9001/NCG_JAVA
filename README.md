@@ -300,15 +300,175 @@ G1GC
 EpsilonGC
 
 ========
+Today: Exception Handling self study and Java Naming Conventions, comments
+
+Realization relationship
+Java Datacontainers
+
+Day 3: Web application development with MySQL as database
+Day 4-6: JPA and Spring Boot
+
+
+==================
+
+Day 2:
+
+Day 1 Recap: 
+```
+Object and Class, 
+instance variables --> HEAP area, 
+static variable --> per class --> Metadata, shared by all objects of a class
+instance methods ==> object.method() ==> context of invoking is object
+static methods ==> Clazz.method() ==> context of invoking is Class ==> inside the static method we can't access "this"
+
+JRE --> ClassLoader --> JVM [ Metadata / metaspace --> loaded classes reside, stack, heap]
+
+Stack is one per thread ==> default we have main thread
+
+Generalization and Specilazation relationship ==> IS A relationship [ inheritance using "extends" keyword]
+
+override, constructor chaning using "super", polymorhiphsm ==> dynamic binding
+Upcasting and downcasting, abstract methods and abstract classes
+```
+
+Why Service facade?
+1) convert fine grained operations into atomic coarse grained operation
+
+```
+public class AccountDao {
+    updateAccount(Account acc) {
+        SQL --> update accounts set balance =....
+    }
+
+    insertAccount(Account acc) {
+        SQL --> insert into ...
+    }
+
+    Account getBalance(Account acc) {
+        SQL --> select balance from accounts where ...
+    }
+
+    lockAccount(Account acc) {
+
+    }
+
+    getBalanceinAllAccounts() {
+
+    }
+}
+
+public class TransactionDao {
+    insertTransaction(TransactionData data) {
+        SQL --> insert into transaction values(...)
+    }
+}
+
+public class BankingService {
+    AccountDao accountDao = new AccountDao();
+    TransactionDao txDAo = new TrnasactionDao();
+    SMSService service = ...
+    // coarse grained atomic opertion 
+    public void transferFunds(Account fromAcc, Account toAcc, double amt) {
+        try {
+            begin Transaction
+            double bal = accoountDao.getBalance(fromAcc);
+            if(amt < bal) {
+                accountDao.updateAccount(fromAcc);
+                 accountDao.updateAccount(toAcc);
+                txDAo.insertTransaction(...);
+                Send SMS
+            }
+            commit transaction
+        } catch(Exception ex) {
+            rollback transaction
+        }
+    }
+}
+
+
+```
+
+Client --> Drop down to select Beneficiary
+           Text Box to enter amount 
+           clicks on "Transfer" button
 
 
 
+2) uses services for Interface segregattion
 
+```
+class AdminService {
+    AccountDao accountDao = new AccountDao();
 
+     insertAccount(Account acc) {
+        accountDao.insertAccount(acc);
+    }
 
+    Account getBalance(Account acc) {
+       return accountDao.getBalance(acc);
+    }
 
+    lockAccount(Account acc) {
+        accountDao.lockAccount(acc);
+    }
 
+    getBalanceinAllAccounts() {
+        accountDao.getBalanceInAllAccount();
+    }
+}
 
+Admin Login --> he / she is given AdminService interface 
 
+class CustomerService {
+    AccountDao accountDao = new AccountDao();
+    updateAccount(Account acc) {
+            accountDao.updateAccount(..)
+    }
 
+    insertAccount(Account acc) {
+        accountDao.insertAccount(..);
+    }
 
+    Account getBalance(Account acc) {
+       accountDao.getBalance(acc);
+    }
+}
+
+```
+
+====================
+
+Day 2:
+
+Realization Relationship
+
+Contract/rules between two elements/models/objects where one element specifies the behaviour and other realizes the behaviour in order to communicate
+
+interface interfaceName {
+    abstract methods()
+}
+
+Why program to interface?
+1) DESIGN
+2) IMPLEMENTATION
+3) TESTING  
+4) INTEGRATION
+5) LOOSE COUPLING
+
+interface EmployeeDao {
+    void addEmployee(Employee e); // public and abstract by default
+    Employee getEmployee(int id);
+}
+
+keyword "implements" is for realization relationship
+Classloader loads a class if it's referenced anywhere in code.
+
+Explicitly loading of class into JRE
+Class.forName("java.util.Date"); ==> Date.class is loaded into JVM
+
+ways to create object:
+1) using a "new" keyword if we know class name in advance
+new Rectangle()
+
+2) using Reflection API
+Class.forName("name of class got from extenal resource").newInstance();
