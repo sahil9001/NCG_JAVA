@@ -698,3 +698,92 @@ Task:
 ListExample.java
 
 Sort products based on Name [ case-insensitive]; Don't modify Product.java
+
+===================
+
+HashCode 
+Numerical representation of an object.
+* 2 similar objects should have same hashcode
+* objects which are not similar can also have same hashcode
+
+public class Rectangle {
+    ///
+
+    // bad hashcode
+    public int hashCode() {
+        return w * b;
+    }
+
+    // good code
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + breadth;
+		result = prime * result + width;
+		return result;
+	}
+}
+
+Rectangle 4,5 ==> 20
+Reactangle 20,1 ==> 20
+Rectangle 5,4 ==> 20
+Rectangle 10, 2 ==> 20
+
+HashCode is used for Hashbased data containers ==> Hashtable / HashMap / HashSet
+
+Quick look into HashSet and Hashtable
+
+Map --> data container in the form of key/value pairs
+key --> unique
+value -> can be duplicate
+
+Dictionary --> Map type
+Registry --> Map type
+
+Task: use Map
+Map --> HashMap / TreeMap
+
+=====================
+
+Annotation: Metadata
+Annotations contains only properties; no methods and fields/variable
+
+1) Who uses?
+* COMPILER
+* CLASSLOADER
+* RUNTIME
+2) Where can i apply?
+* TYPE [class / interface / annotation / record / enum]
+* method
+* parameters
+* field
+
+```
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.SOURCE)
+public @interface Override {
+}
+
+```
+
+
+Using Annotations I am going to generate SQL for entity classes
+
+Avoid String concatination:
+String s = "Hello"; // immutable
+s += "World"; // here a new string is created in heap area
+s += "123"; // here a new string is created in heap area
+
+Task Day 2:
+Complete 
+SQL = SQLUtil.generateInsertSQL(e);
+
+Check HashSet and ArrayBlockingQueue
+
+
+
+
+
+
+

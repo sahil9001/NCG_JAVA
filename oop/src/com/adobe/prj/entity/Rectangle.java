@@ -1,5 +1,7 @@
 package com.adobe.prj.entity;
 
+import java.util.Objects;
+
 import com.adobe.prj.util.IComparable;
 
 public class Rectangle implements IComparable {
@@ -26,15 +28,7 @@ public class Rectangle implements IComparable {
 	}
 	// equals() is inherited from Object class
 	
-	// r1.equals(r2) ==> this refers to "r1" and "obj" is referencing r2
-	@Override
-	public boolean equals(Object obj) {
-		Rectangle rect = (Rectangle) obj;
-		if(this.width == rect.width && this.breadth == rect.breadth) {
-			return true;
-		}
-		return false;
-	}
+	
 	@Override
 	public int compare(Object other) {
 		Rectangle r = (Rectangle) other;
@@ -42,9 +36,33 @@ public class Rectangle implements IComparable {
 	}
 	
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + breadth;
+		result = prime * result + width;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rectangle other = (Rectangle) obj;
+		if (breadth != other.breadth)
+			return false;
+		if (width != other.width)
+			return false;
+		return true;
+	}
+	@Override
 	public String toString() {
 		return "Rectangle [width=" + width + ", breadth=" + breadth + "]";
 	}
+	
 	
 	
 }
