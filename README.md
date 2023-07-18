@@ -475,12 +475,57 @@ Class.forName("name of class got from extenal resource").newInstance();
 
 ====
 
-Interfaces for OCP ==> Closed for Change; open for extension
+Anonymous class: class without a name
 
-Scarlett
-Brad
-Angelina
-Lee
-George
+```
+Flyable.java
+interface Flyable {
+    void fly();
+}
+
+Bird.java
+public class Bird implements Flyable {
+    name; age; color; weight;
+    eat() sleep()
+
+    public void fly() {
+        // 
+    }
+}
+
+AeroPlane.java
+public class AeroPlane implements Flyable {
+    name; seat; engine
+    start() stop() 
+    public void fly() {
+        // engine
+    }
+}
+
+Dummy1.java
+public class Dummy1 implements Flyable {
+    public void fly() {
+        // jump from 10th floor
+    }
+}
+
+Dummy2.java
+public class Dummy2 implements Flyable {
+    public void fly() {
+        // fast train ...
+    }
+}
+
+Solution:  Anonymous class
+Flyable f = new Flyable() {
+     public void fly() {
+        // jump from 10th floor
+    }
+}; 
+f.fly();
+```
+
+If interface has only one method to implement ==> @FunctionalInterface we can use Lambda expression instead of anonymous class
+
 
 

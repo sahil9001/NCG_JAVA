@@ -14,4 +14,8 @@ public class Utility {
 			}
 		}
 	}
+	
+	public static IComparable max(IComparable[] elems) {
+		return null;
+	}
 }
