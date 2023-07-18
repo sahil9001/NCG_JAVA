@@ -527,5 +527,120 @@ f.fly();
 
 If interface has only one method to implement ==> @FunctionalInterface we can use Lambda expression instead of anonymous class
 
+=====
+
+Generics in Java
+--> can have only Object type as genrics; not primitive type
+Integer is a type wrapper for int
+Double is a type wrapper for double
+
+int x = 10;
+Integer iX = x; // boxing
+
+int y = iX; // unboxing
+y++;
+
+```
+public class Rectangle {
+	private int width;
+	private int breadth;
+    ///
+}
+
+public class Rectangle<T> {
+	private T width;
+	private T breadth;
+    //
+}
+
+Reactangle<Integer> r1 = new Rectangle<>(3,5);
+Rectangle<Double> r2 = new Rectangle<>(2.2 , 4.2);
+
+public class LinkedList<T> {
+    Node<T> nodes[];
+}
+
+class Node<T> {
+    T data;
+    int next;
+    int prev;
+}
+
+LinkedList<Employee> empList = ...
+LinkedList<Product> productList = ...
+
+```
+
+Existing code:
+```
+public interface IComparable {
+	int compare(Object other);
+}
+
+public abstract class Product implements IComparable {
+    @Override
+	public int compare(Object other) {
+		Product p = (Product) other;
+		return Double.compare(this.price, p.price);
+	}
+}
+```
+Generic interface and methods:
+```
+    public interface IComparable<T> {
+        int compare(T other);
+    }
+    public abstract class Product implements IComparable<Product> {
+    @Override
+	public int compare(Product other) {
+        return Double.compare(this.price, other.price);
+    }
+```
+
+Abstract class:
+* can have state and behaviour
+* meant for generalization; having common behaviour up the tree
+* single inheritance
+
+interfaces:
+* can't have state
+* for realization
+* class can implement multiple interfaces
+
+interface Dance {
+    dance();
+}
+
+interface Swim {
+    swim();
+}
+
+interface Fight {
+    fight();
+}
+
+
+class Actor implements Dance {
+    state, behaviour
+    dance() {
+        //
+    }
+}
+
+class Hero extends Actor implements Swim, Fight {
+    fight() {}
+    swim() { }
+}
+
+Dance d = new Actor();
+d.dance();
+
+Fight f = new Hero();
+f.fight();
+f.dance();
+
+Dance d = (Dance) f;
+d.dance();
+
 
 
