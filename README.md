@@ -632,4 +632,69 @@ public interface Comparator<T> {
 Arrays class contains algorithms like sort(), max(), min(), binarySearch() .. to be used on array type data container
 It uses Comparable or Compartor for comparision
 
+Array type of data container should be the first choice for data container.
+* size is fixed
+* adding / removing in arbitrary position is difficult O(n)
+array of 100 elements; if i add data in 10th position 
+* Contiguous memory
 
+Java Collection Framework:
+1) interfaces
+2) implementation classes
+3) Algorithm / utility classes
+
+Collection is a interface which contains all basic mehtods required for data container
+List extends Collection
+Set extends Collection
+Queue extends Collection
+
+List:
+1) index based operations are possible
+2) ordered
+3) duplicates are allowed
+4) re-ordered: sort, shuffle, reverse
+
+Set:
+1) unique 
+2) no duplicated
+3) ordering is based on different algorithms
+4) can't re-order
+
+Vector, Stack are legacy collections introduced in Java 1.2; issues with them is they are very slow
+operations in these containers uses locking mechanism. [ synchronized]
+They did this to avoid data corruption in multi-user env [ multi-threaded]
+i need to add data in Vector
+1) Lock the vector
+2) add data
+3) UnLock
+
+```
+// Avoid
+ArrayList list = new ArrayList();
+
+// program to interface
+List list = new ArrayList(); 
+List list = new LinkedList();
+
+list.add("A");
+list.add(22);
+list.add(new Date());
+
+if(list.get(2) instanceof Date) {
+    Date d = (Date) list.get(2);
+}
+
+Use Generics all the time; which is type-safe
+List<String> list = new  ArrayList<>();
+list.add("A"); // valid
+list.add(22); // compilation error
+String str = list.get(0);
+```
+
+enhanced for loop and iterator are safe iteration; fail fast exception; internally it uses locking mechanism
+doesn;t allow concurrent access
+
+Task:
+ListExample.java
+
+Sort products based on Name [ case-insensitive]; Don't modify Product.java
