@@ -1,6 +1,8 @@
 package com.adobe.prj.entity;
 
-public class Rectangle {
+import com.adobe.prj.util.IComparable;
+
+public class Rectangle implements IComparable {
 	private int width;
 	private int breadth;
 	
@@ -33,4 +35,16 @@ public class Rectangle {
 		}
 		return false;
 	}
+	@Override
+	public int compare(Object other) {
+		Rectangle r = (Rectangle) other;
+		return (this.breadth * this.width) - (r.width * r.breadth);
+	}
+	
+	@Override
+	public String toString() {
+		return "Rectangle [width=" + width + ", breadth=" + breadth + "]";
+	}
+	
+	
 }

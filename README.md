@@ -472,3 +472,15 @@ new Rectangle()
 
 2) using Reflection API
 Class.forName("name of class got from extenal resource").newInstance();
+
+====
+
+Interfaces for OCP ==> Closed for Change; open for extension
+
+Scarlett
+Brad
+Angelina
+Lee
+George
+
+
