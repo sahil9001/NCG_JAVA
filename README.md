@@ -1054,3 +1054,7 @@ public class EmployeeServlet extends HttpServlet {
 
 database > right click ==>  Run As ==> Maven build [second one]
 goals: jetty:run
+
+Resume @ 4:00
+
+
