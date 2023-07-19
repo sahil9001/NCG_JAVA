@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import com.adobe.prj.dao.FetchException;
+import com.adobe.prj.dao.PersistenceException;
 import com.adobe.prj.dao.ProductDao;
 import com.adobe.prj.dao.ProductDaoJdbcImpl;
 import com.adobe.prj.entity.Product;
@@ -19,8 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter(); // character stream to browser / client
 		response.setContentType("text/html"); // MIME type
 		out.print("<html>");
@@ -54,7 +54,21 @@ public class ProductServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		ProductDao productDao = new ProductDaoJdbcImpl();
+
+		Product p = Product.builder()
+				.name(request.getParameter("name"))
+				.price(Double.parseDouble(request.getParameter("price")))
+				.quantity(200)
+				.category(request.getParameter("category"))
+				.build();
+
+		try {
+			productDao.addProduct(p);
+			response.sendRedirect("index.html");
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
