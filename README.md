@@ -933,3 +933,32 @@ try {
     ///
 }
 
+====
+```
+
+mysql> create database order_app_db;
+
+mysql> use order_app_db;
+
+mysql> create table products (id int PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100), price Double, quantity int, category VARCHAR
+
+
+mysql> insert into products values (0, 'Sony Bravia', 210000.00, 100, 'tv');
+
+mysql> insert into products values (0, 'iPhone 14', 120000.00, 100, 'mobile');
+
+
+mysql> insert into products values (0, 'OnePlus Nord', 98000.00, 100, 'mobile');
+
+
+mysql> select * from products;
++----+--------------+--------+----------+----------+
+| id | name         | price  | quantity | category |
++----+--------------+--------+----------+----------+
+|  1 | Sony Bravia  | 210000 |      100 | tv       |
+|  2 | iPhone 14    | 120000 |      100 | mobile   |
+|  3 | OnePlus Nord |  98000 |      100 | mobile   |
++----+--------------+--------+----------+----------+
+
+
+```
