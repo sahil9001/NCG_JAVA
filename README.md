@@ -869,3 +869,71 @@ Central repositoreries
 <url>https://repo1.maven.org/maven2/</url>
 
 ```
+
+JDBC --> Java Database Connectivity 
+JDBC provides interfaces; implementation classes are provided by database vendors
+
+database-1.0.0.jar <== build file
+Default scope is make the library available in final build ==> JRE
+ <scope>provided</scope> ==> use this library only to compile ==> will not be a part of my final production code
+ <scope>test</scope> ==> use this library only to run test cases
+
+ Another use case of provided:
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>4.0.1</version>
+    <scope>provided</scope>
+</dependency>
+
+Here we need servlet-api for compilation and also required in runtime;
+we have told that don't include servlet api in my final bundle, use it to compile; target machine [server] already has this
+
+Exception Handling:
+
+public class PersistenceException extends Exception {
+    public PersisteinceException(String msg) {
+        ...
+    }
+}
+
+client code:
+ProductDao productDao = new ProductDaoJdbcImpl(); // use factory
+
+Product p = new Product(..);
+try {
+    productDao.addProduct(p);
+} catch(PeristenceException ex) {
+    ex.getMessage();
+    ex.printStackTrace();
+}
+
+
+interface ProductDao {
+    void addProduct(Product p) throws PersistenceException;
+}
+
+class ProductDaoJdbcImpl implements ProductDao {
+    public void addProduct(Product p) throws PersistenceException{
+           try {
+            // SQL
+           } catch(SQLException ex) {
+            throw new PersitenceException("unable to add product");
+           }
+    }
+}
+
+
+class ProductDaoMongodbImpl implements ProductDao {
+    public void addProduct(Product p) throws PersistenceException{
+           try {
+            // SQL
+           } catch(MongoException ex) {
+            throw new PersitenceException("unable to add product");
+           }
+    }
+}
+
+
+
+
