@@ -21,34 +21,42 @@ public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter(); // character stream to browser / client
-		response.setContentType("text/html"); // MIME type
-		out.print("<html>");
-		out.print("<body>");
-		out.print("<table>");
-		out.print("<tr>");
-		out.print("<th> ID </th>");
-		out.print("<th> Name </th>");
-		out.print("<th> Price </th>");
-		out.print("<th> Category </th>");
-		out.print("</tr>");
+//		PrintWriter out = response.getWriter(); // character stream to browser / client
+//		response.setContentType("text/html"); // MIME type
+//		out.print("<html>");
+//		out.print("<body>");
+//		out.print("<table>");
+//		out.print("<tr>");
+//		out.print("<th> ID </th>");
+//		out.print("<th> Name </th>");
+//		out.print("<th> Price </th>");
+//		out.print("<th> Category </th>");
+//		out.print("</tr>");
+//		ProductDao productDao = new ProductDaoJdbcImpl();
+//
+//		try {
+//			List<Product> products = productDao.getProducts();
+//			for (Product p : products) {
+//				out.print("<tr>");
+//				out.print("<td>" + p.getId() + "</td>");
+//				out.print("<td>" + p.getName() + "</td>");
+//				out.print("<td>" + p.getPrice() + "</td>");
+//				out.print("<td>" + p.getCategory() + "</td>");
+//				out.print("</tr>");
+//			}
+//		} catch (FetchException e) {
+//			e.printStackTrace();
+//		}
+//		out.print("</body>");
+//		out.print("</html>");
 		ProductDao productDao = new ProductDaoJdbcImpl();
-
 		try {
-			List<Product> products = productDao.getProducts();
-			for (Product p : products) {
-				out.print("<tr>");
-				out.print("<td>" + p.getId() + "</td>");
-				out.print("<td>" + p.getName() + "</td>");
-				out.print("<td>" + p.getPrice() + "</td>");
-				out.print("<td>" + p.getCategory() + "</td>");
-				out.print("</tr>");
-			}
+			List<Product> list = productDao.getProducts();
+			request.setAttribute("products", list);
+			request.getRequestDispatcher("products.jsp").forward(request, response);
 		} catch (FetchException e) {
 			e.printStackTrace();
 		}
-		out.print("</body>");
-		out.print("</html>");
 
 	}
 
