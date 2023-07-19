@@ -63,6 +63,35 @@ bash terminal> mysql -u "root" -p
 mysql> exit
 ```
 
+```
+<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.11.0</version>
+					<configuration>
+						<source>17</source>
+						<target>17</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.4.0</version>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
+				<!-- embedded JETTY server -->
+				<plugin>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>11.0.15</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+```
 Reference Books & Links:
 1) Head First Java, Kathy Sierra
 2) Effective Java
@@ -781,9 +810,62 @@ SQL = SQLUtil.generateInsertSQL(e);
 
 Check HashSet and ArrayBlockingQueue
 
+HashSet: uses hashCode() and equals() to identity duplicates and deciding position of added elements
+equals() is called only when hashCode() is same
+
+TreeSet: uses Comparable to identify duplicates and ordering
+
+Set<String> set = new TreeSet<>(); // Comparable
+
+Set<Product> set = new TreeSet<>((p1,p2) -> p1.getName().compareTo(p2.getName())) ; // comparator
+
+============
+
+Day 3:
+
+Maven --> Java Build tool
+* Manage dependencies ==> 3rd party libraries for the project
+* Automate Compile, testing, build, deploy
+* Plugin configuration 
+* Uniformity across the team members, IDEs
+
+pom.xml ==> Project Object Model ==> Configuration file where dependencies, plugins, etc are configured
+
+pom.xml
+```
+<dependencies>
+    <dependency>
+        <groupId>com.mysql</groupId>
+        <artifactId>mysql-connector-j</artifactId>
+        <version>8.0.33</version>
+    </dependency>
+</dependencies>
+
+com
+ mysql
+   mysql-connector-j
+     8.0.33
+        mysql-connector-j-8.0.33.jar
 
 
+settings.xml
+Remote repository
+<servers>
+    <server>
+      <id>adobe proxy server</id>
+      <username>my_login</username>
+      <password>my_password</password>
+      <privateKey>${user.home}/.ssh/id_dsa</privateKey>
+      <passphrase>some_passphrase</passphrase>
+      <filePermissions>664</filePermissions>
+      <directoryPermissions>775</directoryPermissions>
+      <configuration></configuration>
+    </server>
+  </servers>
 
 
+Central repositoreries
+<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+<url>https://repo1.maven.org/maven2/</url>
 
-
+```

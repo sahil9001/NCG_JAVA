@@ -1,5 +1,6 @@
 package com.adobe.prj.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.adobe.prj.annotations.Column;
@@ -37,7 +38,27 @@ public class SQLUtil {
 	public static String generateInsertSQL(Object obj) {
 		StringBuilder builder = new StringBuilder();
 		Table table = obj.getClass().getAnnotation(Table.class);
-		// use invoke of Reflection API
+		if(table != null) {
+			builder.append("insert into");
+			builder.append(" ");
+			builder.append(table.name()) ; 
+			builder.append(" values ("); // create table emp (
+			Method[] methods = obj.getClass().getDeclaredMethods(); // not inherited methods
+			for(Method m : methods) {
+				if(m.getName().startsWith("get")) {
+					Column col = m.getAnnotation(Column.class);
+					if(col != null) {
+						try {
+							Object ret = m.invoke(obj);
+							// 
+						} catch (Exception e) {
+							e.printStackTrace();
+						} 
+					}
+				}
+			}
+			builder.setCharAt(builder.lastIndexOf(","), ')');
+		}
 		return builder.toString();
 	}
 }
