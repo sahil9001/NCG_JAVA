@@ -962,3 +962,92 @@ mysql> select * from products;
 
 
 ```
+Task:
+complete getProduct(int id) and write a client to test it.
+
+convert this application into ==> Web application
+
+=========================
+
+Web application Development using Servlet technology
+
+Servlet --> Server side Java object which runs within Servlet Container
+
+http://localhost:8080/login
+
+http://localhost:8080/register
+
+HttpServletRequest ==> object is instantiated by the Servlet engine/ web container to encapsulate all the data from client[FORM data, payload, Browser, OS data]
+
+HttpServletResponse ==> object is used to write data back to client
+
+For every request HttpServletRequest & HttpServletResponse objects are created; they are destroyed once response is commited to client
+
+10 concurrent users means 10 threads for Thread pool is used; at that point in Servlet engine ten instances of HttpServletRequest & HttpServletResponse objects exist in container.
+
+Servlet:
+```
+GET http://localhost:8080/products
+
+@WebServlet("/products")
+public class ProductServlet extends HttpServlet {
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        // Servlet code
+    }
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+            // Servlet code
+    }
+    public void doDelete(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    // Servlet code
+    }
+    public void doUpdate(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    // Servlet code
+    }
+}
+
+HTTP Methods: GET , POST, PUT and DELETE
+
+Address bar and hyperlink ==> GET request
+FORM data ==> can be POST
+
+```
+
+1) Apache Tomcat (or simply Tomcat) is an open source web server and servlet container developed by the Apache Software Foundation (ASF)
+
+2) Jetty: Eclipse Jetty is a Java web server and Java Servlet container. 
+
+3) Netty: provides NIO based Web server and servlet container
+
+We can have a phyiscal installation or use Maven plugin [ good enough for development]
+
+in "war" files compiled code will be in "WEB-INF" folder
+
+By default Servlet Container / engine looks for web.xml as deployment descriptor
+
+```
+
+public class EmployeeServlet extends HttpServlet {
+
+}
+
+web.xml
+<servlet>
+    <servlet-name>First</sevlet-name>
+    <servlet-class>com.adobe.prj.web.EmployeeServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+     <servlet-name>First</sevlet-name>
+     <url-pattern>/employee</url-pattern>
+</servlet-mapping>
+
+```
+
+By using Annotation no need for web.xml
+@WebServlet("/employee")
+public class EmployeeServlet extends HttpServlet {
