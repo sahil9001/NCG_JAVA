@@ -873,67 +873,63 @@ Central repositoreries
 JDBC --> Java Database Connectivity 
 JDBC provides interfaces; implementation classes are provided by database vendors
 
-database-1.0.0.jar <== build file
-Default scope is make the library available in final build ==> JRE
- <scope>provided</scope> ==> use this library only to compile ==> will not be a part of my final production code
- <scope>test</scope> ==> use this library only to run test cases
+Steps to interact with relational database:
+1) Load vendor specific drivers into JRE
 
- Another use case of provided:
-<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>javax.servlet-api</artifactId>
-    <version>4.0.1</version>
-    <scope>provided</scope>
-</dependency>
+Class.forName("driverClassName");
 
-Here we need servlet-api for compilation and also required in runtime;
-we have told that don't include servlet api in my final bundle, use it to compile; target machine [server] already has this
+Example: Class.forName("com.mysql.jdbc.cj.Driver"); --> mysql-connector-8.0.33.jar
+Class.forName("oracle.jdbc.Driver"); 
 
-Exception Handling:
+2) Establish database connection
 
-public class PersistenceException extends Exception {
-    public PersisteinceException(String msg) {
-        ...
-    }
-}
+java.sql.Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-client code:
-ProductDao productDao = new ProductDaoJdbcImpl(); // use factory
+getConnection() is a factory method; based on URL passed it creates OracleConnection / PostgressConnection / MySqlConnection
 
-Product p = new Product(..);
+Connection is a interface
+
+java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://198.02.34.11:3306/emp_db", USERNAME, PASSWORD);
+java.sql.Connection con = DriverManager.getConnection("jdbc:oracle:thin://198.02.34.11:1521/emp_db", USERNAME, PASSWORD);
+
+3) Send SQL 
+3.1) Statement
+ use this if SQL is fixed; same sql for n Requests
+ select * from products
+
+ http://server.com?id=10
+
+ http://server.com?id=  ' UNION SLEEP(10);--
+
+ String query = "SELECT * FROM accounts WHERE custID='" + request.getParameter("id") + "'";
+
+http://server.com?id=  ' or 1 = 1
+
+3.2) PreparedStatement
+Use this in case of SQL depends on IN parameters (?)
+
+select * from accounts where account_id =?
+
+insert into products values (?,?,?,?);
+https://owasp.org/www-project-top-ten/
+
+3.3) CallableStatement
+is used to invoke stored procedure of database
+
+4) ResultSet
+
+4) always close resources in finally block [ compulsory execute code]
+
+executeQuery() for SELECT SQL
+executeupdate() for INSERT, DELETE, UPDATE SQL
+
 try {
-    productDao.addProduct(p);
-} catch(PeristenceException ex) {
-    ex.getMessage();
-    ex.printStackTrace();
+    /..
+    ////
+    ///
+} catch(SQLException ex) {
+    //
+} finally {
+    ///
 }
-
-
-interface ProductDao {
-    void addProduct(Product p) throws PersistenceException;
-}
-
-class ProductDaoJdbcImpl implements ProductDao {
-    public void addProduct(Product p) throws PersistenceException{
-           try {
-            // SQL
-           } catch(SQLException ex) {
-            throw new PersitenceException("unable to add product");
-           }
-    }
-}
-
-
-class ProductDaoMongodbImpl implements ProductDao {
-    public void addProduct(Product p) throws PersistenceException{
-           try {
-            // SQL
-           } catch(MongoException ex) {
-            throw new PersitenceException("unable to add product");
-           }
-    }
-}
-
-
-
 
