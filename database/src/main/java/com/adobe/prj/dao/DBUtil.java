@@ -16,7 +16,7 @@ public class DBUtil {
 		DRIVER = res.getString("DRIVER");
 		URL = res.getString("URL");
 		USER = res.getString("USERNAME");
-		
+		PWD = res.getString("PASSWORD");
 		try {
 			Class.forName(DRIVER);
 		} catch (ClassNotFoundException e) {
