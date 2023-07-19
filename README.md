@@ -1051,3 +1051,6 @@ web.xml
 By using Annotation no need for web.xml
 @WebServlet("/employee")
 public class EmployeeServlet extends HttpServlet {
+
+database > right click ==>  Run As ==> Maven build [second one]
+goals: jetty:run

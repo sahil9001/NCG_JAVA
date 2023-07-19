@@ -1,24 +1,59 @@
 package com.adobe.prj.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.adobe.prj.dao.FetchException;
+import com.adobe.prj.dao.ProductDao;
+import com.adobe.prj.dao.ProductDaoJdbcImpl;
+import com.adobe.prj.entity.Product;
 
 @WebServlet("/products")
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
- 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out = response.getWriter(); // character stream to browser / client
+		response.setContentType("text/html"); // MIME type
+		out.print("<html>");
+		out.print("<body>");
+		out.print("<table>");
+		out.print("<tr>");
+		out.print("<th> ID </th>");
+		out.print("<th> Name </th>");
+		out.print("<th> Price </th>");
+		out.print("<th> Category </th>");
+		out.print("</tr>");
+		ProductDao productDao = new ProductDaoJdbcImpl();
+
+		try {
+			List<Product> products = productDao.getProducts();
+			for (Product p : products) {
+				out.print("<tr>");
+				out.print("<td>" + p.getId() + "</td>");
+				out.print("<td>" + p.getName() + "</td>");
+				out.print("<td>" + p.getPrice() + "</td>");
+				out.print("<td>" + p.getCategory() + "</td>");
+				out.print("</tr>");
+			}
+		} catch (FetchException e) {
+			e.printStackTrace();
+		}
+		out.print("</body>");
+		out.print("</html>");
+
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
