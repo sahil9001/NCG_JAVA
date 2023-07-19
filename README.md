@@ -1055,6 +1055,33 @@ public class EmployeeServlet extends HttpServlet {
 database > right click ==>  Run As ==> Maven build [second one]
 goals: jetty:run
 
-Resume @ 4:00
+===
+
+1)
+customers database table
+
+email [PK] first_name last_name
+
+2)
+CustomerDao iterface
+addCustomer(Customer c)
+List<Customer> getCustomers()
+
+CustomerDaoJdbcImpl
+INSERT and SELECT
+
+3)
+CustomerController Servlet
+
+4)
+index.html
+<a href="customers">Customers </a>
+<a href="customerForm.html">Add Customer </a>
+
+
+Spring and JPA frameworks
+
+
+
 
 
