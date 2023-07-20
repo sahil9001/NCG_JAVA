@@ -1079,9 +1079,60 @@ index.html
 <a href="customerForm.html">Add Customer </a>
 
 
+Servlet Container ==> application on JVM; life-cycle management and DI of HttpServletRequest and HttpServletResponse
+Limited to Web tier [ servlets]
+
+Java 8 Streams ==> Pending 
+
 Spring and JPA frameworks
 
+Spring Framework : It's a container which manages life-cycle of bean and wires dependencies.
+Bean --> any object managed by Spring Container.
+Spring Container is a Inversion Of Control container [ DI is acheived using IOC ]
+
+
+Spring instantiates class which has one of these annotations:
+1) @Component --> utility / helper classes
+2) @Repository --> DAO classes
+3) @Service --> Service classes
+4) @Configuration -> reading properties nad factory methods
+5) @Controller --> Traditional Web applications like [ servlet and JSP] 
+6) @RestController --> Building RESTful Web Services
 
 
 
+public class Book {}
+
+public interface BookDao {
+    void addBook(Book b);
+}
+
+@Repository
+public class BookDaoJdbcImpl implements BookDao {
+    public void addBook(Book b) {
+        ///
+    }
+}
+
+@Service
+public class AppService {
+    @Autowired
+    BookDao bookDao;
+
+    public void insertBook(Book b) {
+        bookDao.addBook(b);
+    }
+}
+
+@SpringBootApplication
+public class Example {
+    public static void main(String[] args) {
+       ApplicationContext ctx = SpringApplication.run(Example.class);
+       AppService service = ctx.getBean("appService", AppService.class);
+       Book b = new Book(...);
+       service.insertBook(b);
+    }
+}
+
+Spring depends on ByteBuddy / JavaAssist / CGLLIB libraries for wiring dependencies, creating proxies by using ByteCode Instrumentation
 
