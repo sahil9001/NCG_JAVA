@@ -17,7 +17,7 @@ public class CustomerClient implements CommandLineRunner {
 	// code gets executed automatically once Spring container is created
 	@Override
 	public void run(String... args) throws Exception {
-		addCustomers();
+		//addCustomers();
 	}
 
 	private void addCustomers() {

@@ -1,5 +1,6 @@
 package com.adobe.prj.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,9 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.adobe.prj.dao.CustomerDao;
+import com.adobe.prj.dao.OrderDao;
 import com.adobe.prj.dao.ProductDao;
 import com.adobe.prj.entity.Customer;
+import com.adobe.prj.entity.LineItem;
+import com.adobe.prj.entity.Order;
 import com.adobe.prj.entity.Product;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class OrderService {
@@ -18,6 +24,28 @@ public class OrderService {
 	
 	@Autowired
 	private CustomerDao customerDao;
+	
+	@Autowired
+	private OrderDao orderDao;
+	
+	@Transactional 
+	public void placeOrder(Order order) {
+		List<LineItem> items = order.getItems();
+		double total = 0.0;
+		for(LineItem item : items) {
+			Product p = productDao.findById(item.getProduct().getId()).get();
+			if(p.getQuantity() < item.getQty()) {
+				throw new IllegalArgumentException("No Product in Stock!!!");
+			}
+			p.setQuantity(p.getQuantity() - item.getQty()); // DIRTY checking --> UPDATE
+			item.setAmount(p.getPrice() * item.getQty());
+			total += item.getAmount();
+		}
+		order.setTotal(total);
+		order.setOrderDate(new Date());
+		orderDao.save(order); // insert into orders table and also items table
+	}
+	
 	
 	public Customer addCustomer(Customer c) {
 		return customerDao.save(c);

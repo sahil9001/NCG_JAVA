@@ -1365,7 +1365,31 @@ orderDao.findById(2);
 ```
 
 
+@Transactional  makes the operations in method atomic
 
+@Transactional: code in @Transactional will be flushed to database if it undergoes a change ==> Dirty checking
+
+Client sends the order by REACT / Android / Swift client
+
+Order in JSON format:
+```
+{
+    "customer": {email:"sam@adobe.com"},
+    "items" : [
+        {"product": {id: 3}, qty: 1},
+        {"product": {id: 1}, qty: 2}
+    ]
+}
+```
+
+Dirty Checking:
+```
+@Transactional
+public void updateProduct(int id, int qty) {
+    Product p = productDao.findById(id).get();
+    p.setQuantity(qty); // dirty ==> update
+}
+```
 
 
 
