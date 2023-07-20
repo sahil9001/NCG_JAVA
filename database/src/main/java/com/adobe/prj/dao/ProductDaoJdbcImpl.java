@@ -17,7 +17,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 		String SQL = "INSERT INTO products (name, price, category, quantity) VALUES (?, ?, ? ,?)";
 		Connection con = null;
 		try {
-			con = DBUtil.getConnection();
+			con = DBUtil.getConnection(); //latency
 			PreparedStatement ps = con.prepareStatement(SQL);
 			ps.setString(1, product.getName());
 			ps.setDouble(2, product.getPrice());
