@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -24,4 +25,5 @@ public class Product {
 	private double price;
 	private String category;
 	private int quantity;
+	
 }
