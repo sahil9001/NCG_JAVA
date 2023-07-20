@@ -24,9 +24,9 @@ public class ProductClient implements CommandLineRunner {
 
 	private void addProduct() {
 		Product p = service.addProduct(Product.builder()
-				.name("Tata Bing")
-				.price(9800.00)
-				.category("tv")
+				.name("LG Inverter AC")
+				.price(49800.00)
+				.category("electrical")
 				.quantity(100).build());
 		
 		service.addProduct(p);
