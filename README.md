@@ -1244,4 +1244,67 @@ create=> drop table when application shutsdown; create when application starts; 
 spring.jpa.hibernate.ddl-auto=verify
 verify => use provided tables without altering; if mismatch throw error
 
+```
+
+Association Mapping
+1) Metting Room booking
+* Employee
+* MeetingRoom [Chandra / Awastha / SIRMV/..]
+* Training
+* Booking
+
+meeting_room
+ID  NAME        LOCATION  CAPACITY
+21  CHANDRA     15        NOIDA
+22  SIR MV      40        BENGALURU
+
+
+employees
+ID  NAME DESIGNATION  EMAIL
+18  A    MANAGER      a@adobe.com
+61  B    TEAM LEAD    b@adobe.com
+
+trainings
+ID NAME TRAINER 
+1  JAVA  T
+2  WEB   R
+3  C++   X
+
+
+bookings
+ID    booked_by      booked_date  training   room
+800   b@adobe.com     19-JUL-23   2          22 
+801   a@adobe.com     20-JUL-23   1          21
+802   a@adobe.com     21-JUL-23   2          21
+
+```
+
+Order application:
+```
+orders
+ORDER_ID  ORDER_DATE  TOTAL  customer_fk
+123       19-JUL-23   89011  sam@adobe.com
+124       20-JUL-23   600    raj@adobe.com
+125       20-JUL-23   9800   sam@adobe.com
+
+
+line_items
+ITEM_ID  PRODUCT_FK  ORDER_FK QTY  AMOUNT
+422       4           123       2   9000.00
+423       6           123       1   8900.00
+425       4           124       1   4500.00
+```
+
+ASSOCITION MAPPING:
+1) OneToOne
+2) OneToMany
+3) ManyToOne
+4) ManyToMany
+
+
+
+
+
+
+
 
