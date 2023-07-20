@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.adobe.prj.entity.Product;
 import com.adobe.prj.service.OrderService;
 
 @Component
+@Order(2)
 public class ProductClient implements CommandLineRunner {
 	@Autowired
 	private OrderService service;
@@ -17,7 +19,7 @@ public class ProductClient implements CommandLineRunner {
 	// code gets executed automatically once Spring container is created
 	@Override
 	public void run(String... args) throws Exception {
-		addProduct();
+//		addProduct();
 		listProducts();
 	}
 	
