@@ -1301,6 +1301,69 @@ ASSOCITION MAPPING:
 3) ManyToOne
 4) ManyToMany
 
+```
+ManyTo introduces FK in owning table
+@ManyToOne
+	@JoinColumn(name="CUSTOMER_FK") --> orders table
+	private Customer customer; 
+	
+OneToMany introduces FK in child table
+	@Builder.Default
+	@OneToMany
+	@JoinColumn(name="ORDER_FK") --> items table
+	private List<LineItem> items = new ArrayList<>();
+```
+
+1 Order has 4 lineitems;
+
+```
+1) Without Cascade
+@OneToMany
+	@JoinColumn(name="ORDER_FK")
+	private List<LineItem> items = new ArrayList<>();
+ orderDao.save(order);
+ itemDao.save(i1);
+ itemDao.save(i2);
+ itemDao.save(i3);
+ itemDao.save(i4);
+
+Delete:
+orderDao.delete(order);
+itemDao.delete(i1);
+itemDao.delete(i2);
+itemDao.delete(i3);
+itemDao.delete(i4);
+
+2) With Cascade
+@OneToMany(cascade = CascadeType.ALL)
+ @JoinColumn(name="ORDER_FK")
+ private List<LineItem> items = new ArrayList<>();
+ orderDao.save(order); // saves order and it's line items
+
+ orderDao.delete(order); // delete order and lineitems
+```
+
+Fetch Strategy: LAZY BY DEFAULT
+
+```
+@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="ORDER_FK")
+	private List<LineItem> items = new ArrayList<>();
+orderDao.findById(2);
+// select * from orders where id = 2
+```
+
+EAGER Fetching:
+
+```
+@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+@JoinColumn(name="ORDER_FK")
+private List<LineItem> items = new ArrayList<>();
+orderDao.findById(2);
+// select * from orders where id = 2
+// select items from line_items where order_fk = 2
+```
+
 
 
 
