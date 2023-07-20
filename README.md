@@ -1136,3 +1136,34 @@ public class Example {
 
 Spring depends on ByteBuddy / JavaAssist / CGLLIB libraries for wiring dependencies, creating proxies by using ByteCode Instrumentation
 
+====
+Problem if more than one bean for a given interface exists:
+
+```
+Solution 1: make one of the bean @Primary
+
+@Repository
+@Primary
+public class BookDaoJdbcImpl implements BookDao {
+
+@Repository
+public class BookDaoMongoImpl implements BookDao {
+
+
+Solution 2: use Qualifier
+@Repository
+public class BookDaoMongoImpl implements BookDao {
+
+@Repository
+public class BookDaoJdbcImpl implements BookDao {
+
+
+@Service
+public class LibraryService {
+	@Autowired
+	@Qualifier("bookDaoJdbcImpl")
+	private BookDao bookDao; // interface ==> Spring Container is going to wire the dependency
+
+```
+======
+
