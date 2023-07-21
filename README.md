@@ -1580,15 +1580,26 @@ public class OrderController {
 
 POST http://localhost:8080/api/products
 Content-type: application/json
+
+```
 {
     name: "XBOX",
     price: 56000.00,
     category: "gaming",
     quantity: 50
 }
+```
 
 
 
+Java <--> JSON following libraries are available:
+1) jackson [ default avaialble in spring boot web]
+2) jettison
+3) GSON
+4) Moxy
+
+
+Download POSTMAN to test APIs
 
 
 

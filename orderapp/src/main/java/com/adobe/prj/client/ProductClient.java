@@ -21,7 +21,7 @@ public class ProductClient implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 //		addProduct();
 		//listProducts();
-		getByRange();
+//		getByRange();
 	}
 	
 

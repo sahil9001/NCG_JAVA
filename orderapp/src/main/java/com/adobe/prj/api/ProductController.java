@@ -24,7 +24,7 @@ public class ProductController {
 	private OrderService service;
 
 	// GET http://localhost:8080/api/products
-	// // GET http://localhost:8080/api/products?low=5000&high=40000 // Query
+	// GET http://localhost:8080/api/products?low=5000&high=40000 // Query
 	// Parameters
 	@GetMapping()
 	public List<Product> getProducts(@RequestParam(name = "low", defaultValue = "0.0") double low,
