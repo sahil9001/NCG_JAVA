@@ -84,4 +84,8 @@ public class OrderService {
 	public List<ReportDTO> getReport() {
 		return orderDao.getReport();
 	}
+	
+	public List<Order> getOrder(String date) {
+		return orderDao.getOrder(date);
+	}
 }

@@ -1,5 +1,6 @@
 package com.adobe.prj.api;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,8 +17,11 @@ import com.adobe.prj.dto.ReportDTO;
 import com.adobe.prj.entity.Order;
 import com.adobe.prj.service.OrderService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("api/orders")
+@Slf4j
 public class OrderController {
 	@Autowired
 	private OrderService service;
@@ -47,5 +52,12 @@ public class OrderController {
 	@GetMapping("/report")
 	public List<ReportDTO> getReport() {
 		return service.getReport();
+	}
+	
+	
+	@GetMapping("/byDate")
+	public List<Order> getByDate(@RequestParam("orderDate")  String date) {
+		log.info("order date " + date );
+		return service.getOrder(date);
 	}
 }

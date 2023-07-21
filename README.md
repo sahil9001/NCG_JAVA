@@ -1601,6 +1601,13 @@ Java <--> JSON following libraries are available:
 
 Download POSTMAN to test APIs
 
+Task:
+CustomerController
+ adding new customer
+ get all customers
+ get customer by firstName
+
+
 
 
 
