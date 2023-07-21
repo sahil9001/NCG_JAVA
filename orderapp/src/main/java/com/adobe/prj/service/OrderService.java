@@ -73,6 +73,8 @@ public class OrderService {
 	}
 	
 	public Product getProductById(int id) throws EntityNotFoundException {
+		// Product p = productDao.getById(id); // Proxy object --> No HIT to DB
+		// only if p is used here actual data from dB is fetched
 		Optional<Product> opt = productDao.findById(id);
 		if(opt.isPresent()) {
 			return opt.get();
@@ -91,8 +93,10 @@ public class OrderService {
 	
 	@Transactional
 	public Product updateProduct(int id, Product p) throws EntityNotFoundException {
-		Product product = productDao.findById(id).get();
-		product.setPrice(p.getPrice()); // just modifying price; ==> DIRTY Checking --> update
-		return product;
+//		Product product = productDao.findById(id).get();
+//		product.setPrice(p.getPrice()); // just modifying price; ==> DIRTY Checking --> update
+//		return product;
+		productDao.updateProduct(id, p.getPrice());
+		return productDao.findById(id).get();
 	}
 }

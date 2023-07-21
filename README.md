@@ -1666,3 +1666,141 @@ TICKET_ID  RAISED_BY        RAISED_DATE             ISSUE               RESOLVED
 Use case 3: display only open tickets
 
 ```
+
+
+Steps:
+1) New Spring Starter Project
+Name: orderapp
+Type: Maven
+Language: Java
+Version: 17
+Group: com.adobe
+artifact: ticketapp
+package: com.adobe.prj
+
+
+2) Next
+Add the following dependencies:
+2.1) mysql driver
+2.2) jpa ==> Spring Data JPA
+2.3) lombok
+2.3) web => Spring MVC web
+
+3) Project ==> buildpath ==> configure buildpath ==> remove Excluded src/main/resources
+
+4) application.properties
+
+====
+
+Validation
+Client like React / Angular / Android / Swift they do the validation
+Make sure you do validation again in RESTful
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+
+```
+
+@Entity
+@Table(name = "products")
+public class Product {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
+	private int id;
+
+	@NotBlank(message = "Name is required")
+	private String name;
+
+	@Min(value = 100, message = "Price ${validatedValue} should be more than {value}")
+	private double price;
+	private String category;
+
+	@Min(value = 0, message = "Quantity ${validatedValue} should be more than {value}")
+	private int quantity;
+}
+```
+
+POSTMAN:
+{
+  "name": "",
+  "price": 6.00,
+  "category": "tv",
+  "quantity": -10
+}
+
+Changes to Controller:
+```
+@Validated
+public class ProductController {
+    @PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED) //201
+	public Product addProduct(@RequestBody @Valid Product p) {
+		return service.addProduct(p);
+	}
+ //
+}
+
+
+MethodArgumentNotValidException: 3 errors: 
+[Field error in object 'product' on field 'name': rejected value []; codes [NotBlank.product.name,NotBlank.name,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [product.name,name]; arguments []; default message [name]]; default message [Name is required]] 
+
+[Field error in object 'product' on field 'price': rejected value [6.0]; codes [Min.product.price,Min.price,Min.double,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [product.price,price]; arguments []; default message [price],100]; default message [Price 6.0 should be more than 100]] 
+
+[Field error in object 'product' on field 'quantity': rejected value [-10]; codes [Min.product.quantity,Min.quantity,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [product.quantity,quantity]; arguments []; default message [quantity],0]; default message [Quantity -10 should be more than 0]] ]
+
+@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+		Map<String, Object> body = new LinkedHashMap<>();
+		
+		List<String> errors = ex.getBindingResult().getFieldErrors()
+					.stream().map(exception  -> exception.getDefaultMessage()).collect(Collectors.toList());
+		
+		body.put("errors", errors);
+		body.put("STATUS", HttpStatus.BAD_REQUEST);
+		body.put("Timestamp", new Date());
+		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);	
+}
+
+```
+https://databases.biz/data-models/
+
+Tasks :
+
+1) Vehicle Rental System
+
+Entites : Customer, Vehicle, Driver, Booking
+
+Customer: email, phoneno, name
+Vehicle: regNO [PK] , fueltype [ PETROL / ELECTRIC ], capacity, type: SEDAN / SUV ; COST_PER_DAY
+Driver: LicenceNO [ PK ], name
+
+booking
+ID  BOOKED_BY  VEHICLE_FK DRIVER_FK BOOKED_FROM RETURN_DATE 
+
+Create entities, DAO interfacs , RentalService
+
+Database : rental_app_db
+
+Once you run the application ==> tables are created
+
+MySQL terminal --> Insert customers, drivers, vehicles using SQL
+
+@RestController
+BookingController
+
+Use case 1:
+Customer books a vehcile
+Here he asks from which date; BOOKED_TO is open
+
+Use case 2:
+Customer returns a vehicle
+
+2) Go thro JPA.pdf --> assocation mapping
+
+
+3) Try Meeting Room Booking
+
+4) https://datamodels.databases.biz/
+
