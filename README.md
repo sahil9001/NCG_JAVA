@@ -1516,5 +1516,79 @@ public interface OrderDao extends JpaRepository<Order, Integer> {
 
 ```
 
+Building RESTful Web Services
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+Representational State Transfer
+* Resource ==> available on server [ database, files, Printer]  and needs to be served to client
+* State ==> at any given point value stored in resource [ printer is on / off] 
+* Representation ==> serve the state of resource in various formats [ based on Http header "accept": "application/json"] ==> JSON / XML / RSS/ ATOM /CSV
+
+Resources are idenfitied by Plural Nouns using the URI:
+http://localhost:8080/api/products
+http://localhost:8080/api/orders
+http://localhost:8080/api/customers
+
+HTTP methods for actions on resources: [CRUD]
+POST --> CREATE
+GET --> READ
+PUT/PATCH --> UPDATE
+DELETE --> DELETE
+
+GET and DELETE --> No payload [ only URI] --> Safe methods [ IDEMPOTENT ]
+PUT and POST ==> Payload is sent from client --> not Safe methods
+
+
+"spring-boot-starter-web" provides:
+1) Tomcat as Http WebServer and Servletengine [ jetty/netty can be explicitly configured]
+2) Jackson library for Java <---> JSON HttpMessageConvertor [ContentNegotiationHandler]
+we can explicitly add other converts like [JAXB for XML]
+3) DispatcherServlet: acts like FrontController [ handle all request comming from client]
+4) HandlerMapping [ which code to execute for which API call]
+
+
+```
+@RestController
+@RequestMapping("api/products")
+public class ProductController {
+
+    @GetMapping()
+    m1() {}
+
+    @PostMapping()
+    m2() {}
+
+    @DeleteMapping()
+    m3() {}
+}
+
+
+@RestController
+@RequestMapping("api/orders")
+public class OrderController {
+
+    @GetMapping()
+    m1() {}
+
+    @PostMapping()
+    m2() {}
+}
+```
+
+POST http://localhost:8080/api/products
+Content-type: application/json
+{
+    name: "XBOX",
+    price: 56000.00,
+    category: "gaming",
+    quantity: 50
+}
+
+
+
+
 
 
