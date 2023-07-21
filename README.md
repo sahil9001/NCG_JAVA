@@ -1779,6 +1779,10 @@ Driver: LicenceNO [ PK ], name
 booking
 ID  BOOKED_BY  VEHICLE_FK DRIVER_FK BOOKED_FROM RETURN_DATE 
 
+{
+    ...
+    "bookedFrom" : '2023-7-12'
+}
 Create entities, DAO interfacs , RentalService
 
 Database : rental_app_db
