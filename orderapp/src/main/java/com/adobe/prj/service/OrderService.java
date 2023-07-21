@@ -28,6 +28,10 @@ public class OrderService {
 	@Autowired
 	private OrderDao orderDao;
 	
+	public List<Order> getOrders() {
+		return orderDao.findAll();
+	}
+	
 	@Transactional 
 	public void placeOrder(Order order) {
 		List<LineItem> items = order.getItems();

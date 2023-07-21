@@ -30,6 +30,7 @@ public class LineItem {
 	@JoinColumn(name="PRODUCT_FK")
 	private Product product;
 	
+	
 	private int qty;
 	
 	private double amount;

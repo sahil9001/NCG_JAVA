@@ -20,19 +20,38 @@ public class OrderClient implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
+//		addOrder();
+		printOrders();
+	}
+
+	private void printOrders() {
+		List<Order> orders = service.getOrders();
+		for(Order o : orders) {
+			System.out.println("#############");
+			System.out.println(o.getCustomer().getEmail() +", " + o.getOrderDate());
+			List<LineItem> items = o.getItems();
+			for(LineItem item : items) {
+				System.out.println(item.getProduct().getName() +", " + item.getQty() +", " + item.getAmount());
+			}
+			System.out.println("Total ---> " + o.getTotal());
+			System.out.println("***********");
+		}
+	}
+
+	private void addOrder() {
 		Order order = new Order();
-		Customer c = Customer.builder().email("sam@adobe.com").build(); // login session
+		Customer c = Customer.builder().email("raj@adobe.com").build(); // login session
 		order.setCustomer(c);
 		
 		List<LineItem> items = new ArrayList<>();
 		items.add(LineItem.builder()
 				.product(Product.builder()
-						.id(2).build())
-				.qty(2)
+						.id(4).build())
+				.qty(3)
 				.build());
 		items.add(LineItem.builder()
 				.product(Product.builder()
-						.id(1).build())
+						.id(3).build())
 				.qty(1)
 				.build());
 		

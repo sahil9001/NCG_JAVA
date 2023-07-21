@@ -1391,7 +1391,91 @@ public void updateProduct(int id, int qty) {
 }
 ```
 
+Day 4 Recap:
+
+Spring Boot Framework: this is a framework on top of Spring Framework, which is highly opinated [ lots of configuration comes out of box]
+Opinated:
+1) If we choose Spring Data JPA
+a) We get Database connection pooling using HikariCP library [ uses database entires in application.properties ]
+b) we get Hibernate as ORM provider
+
+2) If we decide to build web application
+a) Tomcat is configured as default Servlet engine / web container
+b) Jackson library as HttpMessageConverter Java <---> JSON
+
+lots of other configs are provided.
+
+Spring Container: IOC container --> Life cycle management of beans and wiring
+Spring Container creates instances of classes which has one of these annotations at class level
+1) @Component
+2) @Repository
+3) @Service
+4) @Configuration
+5) @Controller
+6) @RestController
+
+Factory methods are writtin class with @Configuration; methods are marked as @Bean; the object returned this mehtod is managed by spring container [ need: we need 3rd party classes { won't have above mentioned 6 annotations} to be managed by spring container]
+
+public class MyConfig {
+
+}
+
+@Bean
+public MyConfig getMyConfig() {
+    return new MyConfig(...);
+}
+
+Wiring is done using
+1) @Autowired
+2) @Inject
+
+Wiring is done by using ByteCode instrumentation libraries like ByteBuddy, JavaAssist, CGLib
+
+---
+
+ORM Framework Java <--> database table; ORM frameworks takes care of CRUD operations and also DDL
+PersistenceContext is a environment where all entities are managed [ Synchronized with DB ]
+@Entity [Must have] --> to be managed by PersistenceContext 
+@Table [ if not provided; maps class name to table name]
+@Column [ if not provided; maps java variables to table column]
+@Id [ must have] for PK
+@OneToMany
+@ManyToOne
+@JoinColumn [ FK mapping]
+
+Where FK comes is decided by @ManyToOne [@JoinColumn introduces FK in owning table] 
+or @OneToMany [@JoinColumn introduces FK in the child table]
+
+----
+
+@OneToMany
+1) Cascade.ALL
+save parent; children are also persited
+delete parent object; childrens are also deleted
+
+2) FETCH
+* default for OneToMany is LAZY
+orderDao.findAll(); // select * from orders;
+
+* if we configure EAGER fetching
+orderDao.findAll(); // select * from orders; [ 4, 10, 23]
+also: select * from line_items where order_fk = 4;
+select * from line_items where order_fk = 10;
+select * from line_items where order_fk = 23;
+
+----
+
+interface BookDao extends JpaRepository<Book, String> {
+
+}
+
+JpaRepository has many methods for CRUD operations; Spring Data JPA generates Repositroy class for pre-defined methods;
+i.e, we don't need @Repository class
+
+Cascade can be used only for OneToMany and ManyToMany
 
 
+By Default: ManyToOne is EAGER fetch
+=============
 
-
+Day 5:
