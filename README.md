@@ -1608,7 +1608,28 @@ CustomerController
  get customer by firstName
 
 
+Try this:
+public List<Order> getByDate(@RequestParam("orderDate")  @DateTimeFormat(pattern = "dd-MM-yyyy") Date date) {
+}
 
+Exception handling in RESTful WS:
+```
+OrderService.java
+public Product getProductById(int id) throws EntityNotFoundException {
+		Optional<Product> opt = productDao.findById(id);
+		if(opt.isPresent()) {
+			return opt.get();
+		} else {
+			throw new EntityNotFoundException("Product with id " + id + " doesn't exist!!!");
+		}
+	}
 
+ProductController.java
+@GetMapping("/{id}")
+	public Product getProduct(@PathVariable("id") int id) throws EntityNotFoundException {
+		return service.getProductById(id);
+	}
 
+```
 
+ResponseEntity ==> payload + headers for custom response

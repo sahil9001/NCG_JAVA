@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adobe.prj.entity.Product;
+import com.adobe.prj.service.EntityNotFoundException;
 import com.adobe.prj.service.OrderService;
 
 @RestController
@@ -38,7 +39,7 @@ public class ProductController {
 
 	// GET http://localhost:8080/api/products/3 // PathParameter
 	@GetMapping("/{id}")
-	public Product getProduct(@PathVariable("id") int id) {
+	public Product getProduct(@PathVariable("id") int id) throws EntityNotFoundException {
 		return service.getProductById(id);
 	}
 

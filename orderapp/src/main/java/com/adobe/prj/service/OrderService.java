@@ -72,12 +72,12 @@ public class OrderService {
 		return productDao.save(p);
 	}
 	
-	public Product getProductById(int id) {
+	public Product getProductById(int id) throws EntityNotFoundException {
 		Optional<Product> opt = productDao.findById(id);
 		if(opt.isPresent()) {
 			return opt.get();
 		} else {
-			return null; // throw exception
+			throw new EntityNotFoundException("Product with id " + id + " doesn't exist!!!");
 		}
 	}
 
