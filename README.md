@@ -1489,7 +1489,32 @@ select email, fname from customers
 
 select email, firstName from Customer
 
+```
+select * from orders o join customers c  on  o.customer_fk = c.email;
++----------+----------------------------+--------+---------------+---------------+---------+-------+
+| order_id | order_date                 | total  | customer_fk   | email         | fname   | lname |
++----------+----------------------------+--------+---------------+---------------+---------+-------+
+|        1 | 2023-07-20 16:58:37.313000 | 450000 | sam@adobe.com | sam@adobe.com | Samanta | Ruth  |
+|        2 | 2023-07-21 10:02:41.873000 | 111500 | raj@adobe.com | raj@adobe.com | Raj     | Kumar |
++----------+----------------------------+--------+---------------+---------------+---------+-------+
 
+public interface OrderDao extends JpaRepository<Order, Integer> {
+    @Query(value="select * from orders o join customers c  on  o.customer_fk = c.email", nativeQuery = true)
+    List<Object[]> getReport();
+}
+
+OR
+
+@ManyToOne
+@JoinColumn(name="CUSTOMER_FK")
+private Customer customer; 
+
+public interface OrderDao extends JpaRepository<Order, Integer> {
+    @Query("from Order o join on o.customer")
+    List<Object[]> getReport();
+}
+
+```
 
 
 

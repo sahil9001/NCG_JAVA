@@ -1,9 +1,14 @@
 package com.adobe.prj.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.adobe.prj.dto.ReportDTO;
 import com.adobe.prj.entity.Order;
 
 public interface OrderDao extends JpaRepository<Order, Integer> {
-
+	@Query("select new com.adobe.prj.dto.ReportDTO(o.orderDate, o.total,c.firstName, c.lastName, c.email) from Order o join on o.customer c")
+	List<ReportDTO> getReport();
 }
