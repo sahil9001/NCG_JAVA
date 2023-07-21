@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.adobe.prj.dao.CustomerDao;
 import com.adobe.prj.dao.OrderDao;
 import com.adobe.prj.dao.ProductDao;
+import com.adobe.prj.dto.ReportDTO;
 import com.adobe.prj.entity.Customer;
 import com.adobe.prj.entity.LineItem;
 import com.adobe.prj.entity.Order;
@@ -78,5 +79,9 @@ public class OrderService {
 		} else {
 			return null; // throw exception
 		}
+	}
+
+	public List<ReportDTO> getReport() {
+		return orderDao.getReport();
 	}
 }
