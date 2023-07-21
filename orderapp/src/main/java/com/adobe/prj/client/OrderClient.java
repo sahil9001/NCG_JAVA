@@ -21,7 +21,7 @@ public class OrderClient implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 //		addOrder();
-		printOrders();
+//		printOrders();
 	}
 
 	private void printOrders() {

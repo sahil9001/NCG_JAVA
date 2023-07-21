@@ -28,6 +28,10 @@ public class OrderService {
 	@Autowired
 	private OrderDao orderDao;
 	
+	public List<Product> byRange(double low, double high) {
+		return productDao.findByRange(low, high);
+	}
+	
 	public List<Order> getOrders() {
 		return orderDao.findAll();
 	}

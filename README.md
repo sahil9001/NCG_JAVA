@@ -1479,3 +1479,17 @@ By Default: ManyToOne is EAGER fetch
 =============
 
 Day 5:
+
+JP-QL ==> Java Persitence Query Language 
+SQL
+
+select email, fname from customers
+
+
+
+select email, firstName from Customer
+
+
+
+
+
