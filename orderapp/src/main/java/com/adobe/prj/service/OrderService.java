@@ -88,4 +88,11 @@ public class OrderService {
 	public List<Order> getOrder(String date) {
 		return orderDao.getOrder(date);
 	}
+	
+	@Transactional
+	public Product updateProduct(int id, Product p) throws EntityNotFoundException {
+		Product product = productDao.findById(id).get();
+		product.setPrice(p.getPrice()); // just modifying price; ==> DIRTY Checking --> update
+		return product;
+	}
 }

@@ -1633,3 +1633,36 @@ ProductController.java
 ```
 
 ResponseEntity ==> payload + headers for custom response
+
+======
+
+Task:
+
+Ticket Tracking application: An employee raises a ticket; another employee resolves the ticket
+```
+
+employees
+email                   fname
+danny@adobe.com         Danny
+anna@adobe.com          Anna
+peter@adobe.com        Peter
+
+
+tickets
+TICKET_ID  RAISED_BY        RAISED_DATE   ISSUE  RESOLVED_BY RESOLVED_DATE  RESOLVE_TEXT
+
+
+Use case 1: Employee raises a Ticket ==> POST
+tickets
+TICKET_ID  RAISED_BY        RAISED_DATE              ISSUE               RESOLVED_BY RESOLVED_DATE  RESOLVE_TEXT
+123        anna@adobe.com   20-JUL-2023 4:30:00      Laptop reboots      NULL        NULL           NULL
+
+Use case 2: Ticket close --> Resolve the problem ==> PUT and Dirty Checking
+pick a ticket to resolve
+tickets
+TICKET_ID  RAISED_BY        RAISED_DATE             ISSUE               RESOLVED_BY     RESOLVED_DATE         RESOLVE_TEXT
+123        anna@adobe.com   20-JUL-2023 4:30:00     Laptop reboots      peter@adobe.com  21-JUL-23 3:30:00    Replaced RAM
+124        danny@adobe.com  21-JUL-2023 6:30:00     Need to install SW  NULL           NULL                   NULL
+Use case 3: display only open tickets
+
+```
